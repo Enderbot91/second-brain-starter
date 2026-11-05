@@ -53,6 +53,10 @@ for d in "$HOME"/Repos/*/ "$HOME"/Games/*/; do
         out="$out\n  $name: committed this session, no HANDOFF.md or STATUS.md"
         continue
     fi
+    # Writing the handoff and then committing it is the normal close-out, so a
+    # last commit that touched the handoff itself is clean, whatever the mtimes.
+    doc_commit=$(git -C "$d" log -1 --format=%ct -- "$(basename "$doc")" 2>/dev/null)
+    [ "$doc_commit" = "$last_commit" ] && continue
     doc_mtime=$(stat -f %m "$doc" 2>/dev/null) || continue
     if [ "$doc_mtime" -lt "$last_commit" ]; then
         out="$out\n  $name: committed after $(basename "$doc") was last written"
