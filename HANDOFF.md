@@ -26,3 +26,8 @@ bash scripts/scrub-check.sh                       # must print clean before any 
 HOME=/tmp/sbtest bash install.sh --demo --operator "Jordan Avery" --vault /tmp/sbtest/Vault
 open -a Obsidian /tmp/sbtest/Vault                # render check
 ```
+
+## 2026-11-05, later
+
+- `session-close.sh` (vault and kit copies): a last commit that includes the handoff file now counts as clean, so the normal write-then-commit close-out stops tripping the Stop hook. Kit copy keeps the `VAULT` override. Commit `5aa2b20`.
+- Higgsfield re-authed to the Plus plan the same afternoon, so v2 video assets are unblocked on the training side.
