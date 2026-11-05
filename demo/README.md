@@ -1,0 +1,3 @@
+# The demo vault
+
+Jordan Avery (they/them) runs Redbud Water Supply Corporation, a small rural water utility in Caddo Falls, Texas, where their mother Pat Avery chairs the board. On the side they sell leather goods as Bramble & Bolt and are training for a first marathon. None of it is real: no real person, company, PWS ID, bank, or hostname appears anywhere in `demo/`. It exists so that every recording, workshop, and screenshot comes from this vault and never from a real one. Install it with `bash install.sh --demo --vault ~/DemoVault`, open it in Obsidian, and run `/status` for a board with two cards waiting on Jordan, three active (one deliberately stale), one paused, and one closed.
