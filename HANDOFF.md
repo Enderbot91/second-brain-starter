@@ -43,3 +43,5 @@ open -a Obsidian /tmp/sbtest/Vault                # render check
 
 - Andrew: "why are we calling out a mac requirement?" Added `install.ps1` (junctions for the three dirs, symlink or copy for CLAUDE.md, same substitutions, no hooks on native Windows), rewrote `Windows.md` around it with WSL as route 2, made the two hook scripts portable (`mtime()` tries BSD then GNU stat), and START_HERE now gives Mac/Linux and Windows lines side by side. Commit `ccadc02`. install.ps1 is untested: no PowerShell on this mini. First Windows user is the test.
 - Still Mac-only in practice: nothing in the vault. The hooks are POSIX shell; a PowerShell port is the remaining item.
+
+- Delivery note: Gmail and Microsoft 365 block `.ps1` inside zips, so the kit zip cannot be emailed once install.ps1 exists. Share the GitHub link (Code, Download ZIP) instead; the Hey draft was changed to do that and to say the Windows installer is untested.
