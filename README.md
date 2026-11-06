@@ -1,5 +1,7 @@
 # second-brain-starter
 
+> **New here and not technical?** Read `START_HERE.md` first. It is six numbered steps with every line to paste. This file is the reference.
+
 One Obsidian vault as the system of record, several AI tools reading the same files. This kit is the scaffold: the folder layout, the operator profile, three agents, the project board, the slash commands, and the hooks that keep continuity honest. It is the companion to the training "One Brain, Many Hands."
 
 Mac and Linux first. Windows notes in `Windows.md`.
@@ -12,7 +14,7 @@ cd ~/Repos/second-brain-starter
 bash install.sh --operator "Your Name"
 ```
 
-That copies `vault/` to `~/Vault`, fills your name in, and symlinks `~/.claude/{CLAUDE.md,agents,commands,bin}` into the vault so every machine that syncs the vault gets the same config. Add the two hooks the installer prints. Nothing is deleted, ever.
+That copies `vault/` to `~/Vault`, fills your name in, and symlinks `~/.claude/{CLAUDE.md,agents,commands,bin}` into the vault so every machine that syncs the vault gets the same config. Add `--hooks` to have the installer write the two hooks into `~/.claude/settings.json` (with a backup), or add them by hand from what it prints. Nothing is deleted, ever.
 
 To teach or record from a vault with nothing real in it:
 

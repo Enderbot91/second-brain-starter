@@ -10,6 +10,7 @@
 #   --operator NAME  replaces {{operator}} everywhere; prompted if missing
 #   --demo           overlay demo/ (Jordan Avery, Redbud Water) on top of the skeleton
 #   --force          allow installing into an existing non-empty vault (files are overlaid, never deleted)
+#   --hooks          also write the two hooks into ~/.claude/settings.json (backup taken first)
 #   --no-links       skip the four ~/.claude symlinks
 #
 # Safe to re-run. Nothing is deleted. Real files in the way of a symlink are backed up.
@@ -28,6 +29,7 @@ while [ $# -gt 0 ]; do
     --operator) OPERATOR="$2"; shift 2 ;;
     --demo) DEMO=1; shift ;;
     --force) FORCE=1; shift ;;
+    --hooks) HOOKS=1; shift ;;
     --no-links) LINKS=0; shift ;;
     -h|--help) sed -n '2,17p' "$0"; exit 0 ;;
     *) echo "unknown flag: $1"; exit 1 ;;
@@ -102,6 +104,29 @@ if [ "$LINKS" = 1 ]; then
   link_it "$HOME/Vault/90_Meta/Claude_Config/agents"   "$HOME/.claude/agents"    "agents   "
   link_it "$HOME/Vault/90_Meta/Claude_Config/commands" "$HOME/.claude/commands"  "commands "
   link_it "$HOME/Vault/90_Meta/Claude_Config/bin"      "$HOME/.claude/bin"       "bin      "
+fi
+
+# ------------------------------------------------------------- hooks (written only with --hooks)
+if [ "${HOOKS:-0}" = "1" ]; then
+  SETTINGS="$HOME/.claude/settings.json"
+  mkdir -p "$HOME/.claude"
+  [ -f "$SETTINGS" ] && cp "$SETTINGS" "$SETTINGS.bak-$STAMP"
+  python3 - "$SETTINGS" <<'PY'
+import json, os, sys
+p = sys.argv[1]
+d = json.load(open(p)) if os.path.exists(p) and os.path.getsize(p) > 0 else {}
+hooks = d.setdefault("hooks", {})
+want = {
+  "SessionStart": {"type": "command", "command": 'sh "$HOME/.claude/bin/handoff-debt.sh"'},
+  "Stop":         {"type": "command", "command": 'sh "$HOME/.claude/bin/session-close.sh"', "timeout": 30},
+}
+for event, hook in want.items():
+    entries = hooks.setdefault(event, [])
+    if not any(h.get("command") == hook["command"] for e in entries for h in e.get("hooks", [])):
+        entries.append({"hooks": [hook]})
+json.dump(d, open(p, "w"), indent=2); open(p, "a").write("\n")
+print("  hooks written to", p)
+PY
 fi
 
 # ------------------------------------------------------------- hooks (printed, never written)
