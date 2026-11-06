@@ -31,3 +31,10 @@ open -a Obsidian /tmp/sbtest/Vault                # render check
 
 - `session-close.sh` (vault and kit copies): a last commit that includes the handoff file now counts as clean, so the normal write-then-commit close-out stops tripping the Stop hook. Kit copy keeps the `VAULT` override. Commit `5aa2b20`.
 - Higgsfield re-authed to the Plus plan the same afternoon, so v2 video assets are unblocked on the training side.
+
+## 2026-11-06: on GitHub, plus a plain-English front door
+
+- Pushed by Andrew to `github.com/Enderbot91/second-brain-starter`, **private** (his call after advice: unreviewed, and the kit is the paid product). Pushes come from his terminal; the Claude Code sandbox cannot read `~/.ssh`.
+- Andrew: "I want to make this KISS ready for some non-technical people." Added `START_HERE.md` (six steps, every command in a box, troubleshooting), a `--hooks` flag on `install.sh` that merges the two hooks into `~/.claude/settings.json` with a backup (idempotent, tested twice in a scratch HOME), and a pointer at the top of README. Commit `28046ee`.
+- `git archive` zip for sending by message: `~/Repos/second-brain-starter.zip` (regenerate after any commit with `git archive --format=zip --prefix=second-brain-starter/ -o ~/Repos/second-brain-starter.zip HEAD`).
+- Still open: Windows is untested; the Claude Code install line in START_HERE is the native installer URL and should be checked against the current docs before the first external send.
