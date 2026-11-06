@@ -38,3 +38,8 @@ open -a Obsidian /tmp/sbtest/Vault                # render check
 - Andrew: "I want to make this KISS ready for some non-technical people." Added `START_HERE.md` (six steps, every command in a box, troubleshooting), a `--hooks` flag on `install.sh` that merges the two hooks into `~/.claude/settings.json` with a backup (idempotent, tested twice in a scratch HOME), and a pointer at the top of README. Commit `28046ee`.
 - `git archive` zip for sending by message: `~/Repos/second-brain-starter.zip` (regenerate after any commit with `git archive --format=zip --prefix=second-brain-starter/ -o ~/Repos/second-brain-starter.zip HEAD`).
 - Still open: Windows is untested; the Claude Code install line in START_HERE is the native installer URL and should be checked against the current docs before the first external send.
+
+## 2026-11-06, evening: machine agnostic
+
+- Andrew: "why are we calling out a mac requirement?" Added `install.ps1` (junctions for the three dirs, symlink or copy for CLAUDE.md, same substitutions, no hooks on native Windows), rewrote `Windows.md` around it with WSL as route 2, made the two hook scripts portable (`mtime()` tries BSD then GNU stat), and START_HERE now gives Mac/Linux and Windows lines side by side. Commit `ccadc02`. install.ps1 is untested: no PowerShell on this mini. First Windows user is the test.
+- Still Mac-only in practice: nothing in the vault. The hooks are POSIX shell; a PowerShell port is the remaining item.
