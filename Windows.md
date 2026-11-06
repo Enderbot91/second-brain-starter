@@ -24,7 +24,7 @@ What you give up on this route: the two hooks. They are POSIX shell scripts, so 
 
 ## Route 2, WSL (everything works)
 
-Install WSL (Ubuntu), put the vault on the Windows side so Obsidian sees it, and run the Mac/Linux installer inside WSL:
+Install WSL (in PowerShell as admin: `wsl --install -d Ubuntu`, then reboot and open Ubuntu from the Start menu), put the vault on the Windows side so Obsidian sees it, and run the Mac/Linux installer inside WSL:
 
 ```sh
 ln -s /mnt/c/Users/<you>/Vault ~/Vault

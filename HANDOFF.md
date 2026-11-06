@@ -45,3 +45,7 @@ open -a Obsidian /tmp/sbtest/Vault                # render check
 - Still Mac-only in practice: nothing in the vault. The hooks are POSIX shell; a PowerShell port is the remaining item.
 
 - Delivery note: Gmail and Microsoft 365 block `.ps1` inside zips, so the kit zip cannot be emailed once install.ps1 exists. Share the GitHub link (Code, Download ZIP) instead; the Hey draft was changed to do that and to say the Windows installer is untested.
+
+## Kit issues from the Pilot 1 Runbook review (2026-11-06)
+
+Open, not yet fixed: START_HERE has no sync step (module 7) and no Dataview-on-phone note; the Stop hook is mentioned but never walked through; the second-CLI shims step is only a pointer to `shims/`; there is no home for a pilot misses list or a recording-consent line; the README lists five rules while the plan teaches three. Fixed today: repo URL in START_HERE and README, consistent `~/second-brain-starter` path, check-cards.sh mentioned in step 6, the WSL install line in Windows.md.

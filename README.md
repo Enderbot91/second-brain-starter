@@ -9,8 +9,8 @@ Mac, Linux, and Windows. Mac and Linux use `install.sh`; Windows uses `install.p
 ## Install
 
 ```sh
-git clone <this repo> ~/Repos/second-brain-starter
-cd ~/Repos/second-brain-starter
+git clone https://github.com/Enderbot91/second-brain-starter ~/second-brain-starter
+cd ~/second-brain-starter
 bash install.sh --operator "Your Name"
 ```
 

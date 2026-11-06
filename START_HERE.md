@@ -29,7 +29,7 @@ Then type `claude` and press Return. It opens a browser tab to sign in with your
 
 If you were sent a zip file: double-click it (Windows: right-click, Extract All), then drag the folder it makes into your home folder (the one with your name on it, next to Desktop and Documents).
 
-If you were given a GitHub link instead: open it, click the green "Code" button, choose "Download ZIP," then do the same thing with the zip.
+If you were given a link instead, it is this one: https://github.com/Enderbot91/second-brain-starter. Open it, click the green "Code" button, choose "Download ZIP," then do the same thing with the zip.
 
 Either way you end up with a folder called `second-brain-starter` in your home folder.
 
@@ -83,7 +83,7 @@ In the terminal (Windows: `cd $HOME\Vault; claude`):
 cd ~/Vault && claude
 ```
 
-Ask: "What are my top three priorities?" It should answer from your profile. Type `/status` and press Return. With no projects yet it will say so. Add one card by copying `04_Dashboards/Project_Cards/_card.template.md` in Obsidian, renaming it after a real project, and filling in the five lines at the top. Run `/status` again.
+Ask: "What are my top three priorities?" It should answer from your profile. Type `/status` and press Return. With no projects yet it will say so. Add one card by copying `04_Dashboards/Project_Cards/_card.template.md` in Obsidian, renaming it after a real project, and filling in the five lines at the top. Run `/status` again. If a card ever vanishes from the board, run `~/.claude/bin/check-cards.sh --fix` in the terminal; a colon inside a value is the usual cause and that repairs it.
 
 When you are done for the day, type `/handoff`. That is the habit the whole system depends on.
 
