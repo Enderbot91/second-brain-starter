@@ -2,22 +2,32 @@
 
 This is the kit from the video "One Brain, Many Hands." It sets up one folder of notes that every AI tool you use reads from, so you stop re-explaining yourself and nothing gets lost when a chat ends.
 
-You do not need to be technical. You need a Mac, about an hour, and the willingness to paste a few lines into Terminal. Every line you need is in a gray box below. Copy the whole box, paste it, press Return.
+You do not need to be technical. You need a computer (Mac, Windows, or Linux), about an hour, and the willingness to paste a few lines into a terminal window. Every line you need is in a gray box below. Copy the whole box, paste it, press Return.
+
+On a Mac the terminal is called Terminal (press Command-Space, type Terminal). On Windows it is PowerShell (press the Windows key, type PowerShell). On Linux you know where it is.
 
 ## 1. Install the two free apps
 
 1. **Obsidian** is the app you read and edit notes in. Download it at obsidian.md and open it once.
-2. **Claude Code** is the AI tool that reads and writes those notes. Paste this into Terminal (open Terminal from Spotlight: press Command-Space, type Terminal, press Return):
+2. **Claude Code** is the AI tool that reads and writes those notes. Paste the line for your computer into the terminal.
+
+Mac or Linux:
 
 ```
 curl -fsSL https://claude.ai/install.sh | bash
+```
+
+Windows (PowerShell):
+
+```
+irm https://claude.ai/install.ps1 | iex
 ```
 
 Then type `claude` and press Return. It opens a browser tab to sign in with your Claude account. Sign in, come back to Terminal, type `/exit` and press Return.
 
 ## 2. Put the kit on your computer
 
-If you were sent a zip file: double-click it, then drag the folder it makes into your home folder (the one with your name on it, next to Desktop and Documents).
+If you were sent a zip file: double-click it (Windows: right-click, Extract All), then drag the folder it makes into your home folder (the one with your name on it, next to Desktop and Documents).
 
 If you were given a GitHub link instead: open it, click the green "Code" button, choose "Download ZIP," then do the same thing with the zip.
 
@@ -25,10 +35,18 @@ Either way you end up with a folder called `second-brain-starter` in your home f
 
 ## 3. Run the installer
 
-Paste this into Terminal, but first replace `Your Name` with your actual name, keeping the quotes:
+Paste the line for your computer, but first replace `Your Name` with your actual name, keeping the quotes.
+
+Mac or Linux:
 
 ```
 cd ~/second-brain-starter && bash install.sh --operator "Your Name" --hooks
+```
+
+Windows (PowerShell):
+
+```
+cd $HOME\second-brain-starter; Set-ExecutionPolicy -Scope Process Bypass; .\install.ps1 -Operator "Your Name"
 ```
 
 What it does, in plain words: it creates a folder called `Vault` in your home folder with the empty note structure, writes your name into the profile template, and tells Claude Code where to find the rules. Nothing on your computer is deleted. If it says something already exists, stop and read the message; it is telling you what it found.
@@ -38,6 +56,14 @@ If you want to practice on fake data first, the kit includes a made-up water uti
 ```
 cd ~/second-brain-starter && bash install.sh --demo --vault ~/DemoVault --hooks
 ```
+
+Windows:
+
+```
+cd $HOME\second-brain-starter; Set-ExecutionPolicy -Scope Process Bypass; .\install.ps1 -Demo -Vault "$HOME\DemoVault"
+```
+
+Windows note: the two automatic reminders (the "handoff debt" check at the start and end of a session) do not run on native Windows yet. Everything else does. `Windows.md` explains, and has the WSL route if you want them.
 
 ## 4. Open the vault in Obsidian
 
@@ -51,7 +77,7 @@ This is the most important hour of the setup. Every AI tool reads this page firs
 
 ## 6. Try it
 
-In Terminal:
+In the terminal (Windows: `cd $HOME\Vault; claude`):
 
 ```
 cd ~/Vault && claude
@@ -67,7 +93,7 @@ The `README.md` in this folder has a seven-day checklist, one small step a day. 
 
 ## If something goes wrong
 
-- "command not found: claude" means step 1 did not finish. Close Terminal, open it again, try `claude` once more.
+- "command not found: claude" (or "not recognized" on Windows) means step 1 did not finish. Close the terminal, open it again, try `claude` once more.
 - Obsidian shows a blank board: Dataview is not on, or JavaScript queries are off. See step 4.
 - The installer says the vault exists: you already have a `Vault` folder. Rename it or add `--force` to the installer line to lay the kit over it (nothing is deleted).
 - Anything else: paste the exact message into Claude Code and ask it what went wrong. That is what it is for.

@@ -1,35 +1,37 @@
 # Windows
 
-This kit is Mac and Linux first. Everything in it is plain files, so the vault itself works anywhere Obsidian runs. Three things need translating on Windows.
+Everything in the kit is plain files, so the vault works anywhere Obsidian runs, and Claude Code runs natively on Windows. Two routes.
 
-## Symlinks
+## Route 1, native PowerShell (simplest)
 
-`install.sh` and `fix-claude-symlinks.sh` use `ln -s`. On Windows you have two options.
+Use `install.ps1` instead of `install.sh`. It does the same job: copies the skeleton, fills in your name, and links `~\.claude` into the vault with directory junctions, which need no special rights.
 
-**WSL (recommended).** Run Claude Code and the scripts inside WSL. Put the vault on the Windows side (`/mnt/c/Users/<you>/Vault`) so Obsidian on Windows and the CLI in WSL see the same files, and symlink `~/Vault` in WSL to it:
+```powershell
+cd $HOME\second-brain-starter
+Set-ExecutionPolicy -Scope Process Bypass
+.\install.ps1 -Operator "Your Name"
+```
+
+Practice copy with the fictional utility:
+
+```powershell
+.\install.ps1 -Operator "Jordan Avery" -Demo -Vault "$HOME\DemoVault"
+```
+
+One file link (`CLAUDE.md`) needs Developer Mode (Settings, System, For developers). Without it the installer copies the boot note instead and says so; everything works, you just re-run the installer after editing the boot note.
+
+What you give up on this route: the two hooks. They are POSIX shell scripts, so the boot-time "handoff debt" nag and the Stop-time check do not run. The slash commands and agents work fine. A PowerShell port of the two scripts is on the list; until then run `/status` by hand each morning.
+
+## Route 2, WSL (everything works)
+
+Install WSL (Ubuntu), put the vault on the Windows side so Obsidian sees it, and run the Mac/Linux installer inside WSL:
 
 ```sh
 ln -s /mnt/c/Users/<you>/Vault ~/Vault
-bash install.sh --operator "Your Name"
+cd ~/second-brain-starter && bash install.sh --operator "Your Name" --hooks
 ```
 
-**Native PowerShell.** Make directory junctions and a file symlink by hand. Developer Mode must be on for `New-Item -ItemType SymbolicLink` to work without admin.
-
-```powershell
-$V = "$env:USERPROFILE\Vault"
-New-Item -ItemType Junction -Path "$env:USERPROFILE\.claude\agents"   -Target "$V\90_Meta\Claude_Config\agents"
-New-Item -ItemType Junction -Path "$env:USERPROFILE\.claude\commands" -Target "$V\90_Meta\Claude_Config\commands"
-New-Item -ItemType Junction -Path "$env:USERPROFILE\.claude\bin"      -Target "$V\90_Meta\Claude_Config\bin"
-New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.claude\CLAUDE.md" -Target "$V\90_Meta\session-boot.md"
-```
-
-## The shell scripts
-
-`handoff-debt.sh`, `check-cards.sh`, and `session-close.sh` are POSIX shell and use `stat -f %m` (BSD). Under WSL change that to `stat -c %Y`. Under native PowerShell they do not run; the hooks in `settings.json` can point at a `.ps1` port instead. Nobody has written that port yet.
-
-## No `say`
-
-The video build in the companion repo uses the macOS `say` voice. On Windows use `edge-tts` or any TTS that writes a WAV. The vault and the agents do not depend on it.
+Run Claude Code inside WSL too. Hooks, commands, agents, and scripts all work as on Linux.
 
 ## Sync
 

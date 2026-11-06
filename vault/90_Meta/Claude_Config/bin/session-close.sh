@@ -1,4 +1,6 @@
 #!/bin/sh
+# mtime of a file, BSD or GNU stat
+mtime() { stat -f %m "$1" 2>/dev/null || stat -c %Y "$1" 2>/dev/null; }
 # Stop hook: the end-of-session twin of handoff-debt.sh.
 #
 # handoff-debt.sh nags at boot about continuity that is already behind.
@@ -57,7 +59,7 @@ for d in "$HOME"/Repos/*/ "$HOME"/Games/*/; do
     # last commit that touched the handoff itself is clean, whatever the mtimes.
     doc_commit=$(git -C "$d" log -1 --format=%ct -- "$(basename "$doc")" 2>/dev/null)
     [ "$doc_commit" = "$last_commit" ] && continue
-    doc_mtime=$(stat -f %m "$doc" 2>/dev/null) || continue
+    doc_mtime=$(mtime "$doc") || continue
     if [ "$doc_mtime" -lt "$last_commit" ]; then
         out="$out\n  $name: committed after $(basename "$doc") was last written"
     fi

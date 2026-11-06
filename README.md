@@ -4,7 +4,7 @@
 
 One Obsidian vault as the system of record, several AI tools reading the same files. This kit is the scaffold: the folder layout, the operator profile, three agents, the project board, the slash commands, and the hooks that keep continuity honest. It is the companion to the training "One Brain, Many Hands."
 
-Mac and Linux first. Windows notes in `Windows.md`.
+Mac, Linux, and Windows. Mac and Linux use `install.sh`; Windows uses `install.ps1` (see `Windows.md`).
 
 ## Install
 

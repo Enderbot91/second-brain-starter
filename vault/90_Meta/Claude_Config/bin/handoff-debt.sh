@@ -1,4 +1,6 @@
 #!/bin/sh
+# mtime of a file, BSD or GNU stat
+mtime() { stat -f %m "$1" 2>/dev/null || stat -c %Y "$1" 2>/dev/null; }
 # SessionStart hook: surface projects whose continuity file is behind the code.
 #
 # The two most common asks in any long-running AI setup are "update the handoff"
@@ -24,7 +26,7 @@ for d in "$HOME"/Repos/*/ "$HOME"/Games/*/; do
         continue
     fi
 
-    doc_mtime=$(stat -f %m "$doc" 2>/dev/null) || continue
+    doc_mtime=$(mtime "$doc") || continue
     # Only a full day of drift counts. Committing after writing the handoff in
     # the same session is normal, not debt.
     days=$(( (last_commit - doc_mtime) / 86400 ))
